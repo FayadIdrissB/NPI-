@@ -23,7 +23,7 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
     setStatus('loading');
 
     try {
-      const res = await fetch('http://localhost:5005/api/contact', {
+      const res = await fetch('https://npi-back-blue-sound-591.fly.dev/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
