@@ -1,6 +1,9 @@
 import { useState } from 'react';
+type ContactFormProps = {
+  onSubmitSuccess?: () => void;
+};
 
-export default function ContactForm() {
+export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -9,6 +12,7 @@ export default function ContactForm() {
   });
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [event, setEvent] = useState<{ date: string; hour: string; address: string } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +23,7 @@ export default function ContactForm() {
     setStatus('loading');
 
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch('http://localhost:5005/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -27,12 +31,28 @@ export default function ContactForm() {
 
       if (!res.ok) throw new Error('Erreur serveur');
 
+      const result = await res.json();
+      setEvent(result.event);
+
       setStatus('success');
       setFormData({ firstName: '', lastName: '', gender: '', phone: '' });
+      onSubmitSuccess?.();
     } catch (err) {
       setStatus('error');
     }
   };
+
+  if (status === 'success' && event) {
+    return (
+      <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-xl">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Merci pour votre participation !</h2>
+        <p className="mb-2">Nous avons bien reçu votre demande</p>
+        <p className="mb-1"><strong>Date :</strong> {event.date}</p>
+        <p className="mb-1"><strong>Heure :</strong> {event.hour}</p>
+        <p className="mb-1"><strong>Adresse :</strong> {event.address}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-xl">
@@ -67,7 +87,7 @@ export default function ContactForm() {
             value={formData.gender}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
           >
             <option value="">-- Sélectionner --</option>
             <option value="Homme">Homme</option>
@@ -93,9 +113,6 @@ export default function ContactForm() {
           {status === 'loading' ? 'Envoi en cours...' : 'Envoyer'}
         </button>
 
-        {status === 'success' && (
-          <p className="text-green-600 mt-2 text-sm">Message envoyé avec succès !</p>
-        )}
         {status === 'error' && (
           <p className="text-red-600 mt-2 text-sm">Une erreur est survenue.</p>
         )}
