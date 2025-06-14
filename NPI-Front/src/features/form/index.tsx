@@ -65,6 +65,8 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
             value={formData.firstName}
             onChange={handleChange}
             required
+            pattern="^[A-Za-zÀ-ÿ '-]+$"
+            title="Le prénom ne doit contenir que des lettres, espaces ou tirets."
             className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Jean"
           />
@@ -76,6 +78,8 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
             value={formData.lastName}
             onChange={handleChange}
             required
+            pattern="^[A-Za-zÀ-ÿ '-]+$"
+            title="Le nom ne doit contenir que des lettres, espaces ou tirets."
             className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Dupont"
           />
@@ -101,6 +105,8 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
             value={formData.phone}
             onChange={handleChange}
             required
+            pattern="^(0[67])(\d{8})$"
+            title="Le numéro doit commencer par 06 ou 07 suivi de 8 chiffres."
             className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="06 12 34 56 78"
           />
