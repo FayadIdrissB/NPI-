@@ -21,22 +21,22 @@ function Home() {
         <section className="bg-black text-white py-16 px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-light mb-4">
             Né pour impacter –{" "}
-            <span className="font-semibold">Le gala des entrepreneur</span>
+            <span className="font-semibold">Le GALA des entrepreneur</span>
           </h1>
           <p className="text-lime-400 text-red-500 text-sm font-medium mb-8">
-            date | 28 juin 2025
+            Date | 28 juin 2025
           </p>
           <p className="max-w-3xl mx-auto text-lg mb-6">
             "Né pour impacter", ce n'est pas juste un podcast. Ce n'est pas juste un événement.
             C'est une réponse. Une vision. Une nécessite.
           </p>
           <p className="max-w-3xl mx-auto text-lg mb-12">
-            À l'heure ou tout va vite, ou les distractions sont partout et ou le système nous formate
+            À l'heure où tout va vite, où les distractions sont partout et où le système nous formate
             à survivre au lieu de vivre... il est urgent de revenir à l'essentiel : notre pouvoir d'agir,
             de créer, d'élever.
           </p>
           <div className="inline-block bg-yellow-300 text-black font-bold text-lg px-6 py-4 rounded-md">
-            {remainingTickets} billet{remainingTickets > 1 ? 's' : ''} disponible{remainingTickets > 1 ? 's' : ''}
+            {remainingTickets} Billet{remainingTickets > 1 ? 's' : ''} disponible{remainingTickets > 1 ? 's' : ''}
             <br />
           </div>
           
