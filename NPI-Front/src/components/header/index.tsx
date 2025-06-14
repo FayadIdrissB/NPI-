@@ -1,4 +1,4 @@
-import logo from '../../assets/images/logo_flo.png'
+import logo from '../../assets/images/logo.png'
 
 
 function Header() {
