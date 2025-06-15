@@ -9,12 +9,11 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://npi-front.fly.dev',
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
 }));
-app.options('*', cors());
 
 app.use(express.json());
 
