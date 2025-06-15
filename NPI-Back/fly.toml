@@ -1,7 +1,5 @@
-# fly.toml app configuration file generated for npi-back-blue-sound-591 on 2025-06-14T22:29:38+02:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+[deploy]
+  strategy = "rolling"
 
 app = 'npi-back-blue-sound-591'
 primary_region = 'cdg'
@@ -11,18 +9,10 @@ primary_region = 'cdg'
 [http_service]
   internal_port = 5005
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = false
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
-
-  [[http_service.ports]]
-    handlers = ["http"]
-    port = 80
-
-  [[http_service.ports]]
-    handlers = ["tls", "http"]
-    port = 443
 
 [[vm]]
   memory = '1gb'
