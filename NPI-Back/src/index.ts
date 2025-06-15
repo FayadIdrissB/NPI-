@@ -2,10 +2,11 @@ import { connectDB } from './config/db';
 import { startServer } from './server';
 
 
-
+console.log('🟢 Lancement du backend...');
 (async () => {
   try {
     // Connexion à la base de données
+    console.log('🟢 Lancement du backend...');
     await connectDB();
 
     // Lancement du serveur
