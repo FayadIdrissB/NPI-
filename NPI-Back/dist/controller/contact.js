@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleContact = void 0;
 const contact_1 = __importDefault(require("../models/contact"));
-const mailer_1 = require("../utils/mailer");
 const handleContact = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('🟡 Données reçues :', req.body);
     const { firstName, lastName, gender, phone } = req.body;
@@ -33,24 +32,6 @@ const handleContact = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const message = new contact_1.default({ firstName, lastName, gender, phone });
         yield message.save();
-        if (!mailer_1.resend) {
-            console.warn("Mailer désactivé. Aucune tentative d'envoi.");
-            res.status(503).json({ message: 'Service de mail désactivé temporairement.' });
-            return;
-        }
-        yield mailer_1.resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: toEmail,
-            subject: 'Nouvelle demande de contact',
-            html: `
-        <h2>Nouvelle demande :</h2>
-        <p><strong>Prénom :</strong> ${firstName}</p>
-        <p><strong>Nom :</strong> ${lastName}</p>
-        <p><strong>Sexe :</strong> ${gender}</p>
-        <p><strong>Téléphone :</strong> ${phone}</p>
-        <p><em>Reçue le ${new Date().toLocaleString()}</em></p>
-      `,
-        });
         res.status(200).json({
             message: 'Message envoyé avec succès',
             event: {
