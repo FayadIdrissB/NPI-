@@ -1,0 +1,33 @@
+const nodemailer = require('nodemailer');
+
+const sendContactEmail = async (req, res) => {
+  const { name, email, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Tous les champs sont requis.' });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_FROM,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: process.env.EMAIL_TO,
+      subject: `Nouveau message de ${name}`,
+      text: `Email: ${email}\n\nMessage:\n${message}`,
+    });
+
+    res.status(200).json({ message: 'Email envoyé avec succès.' });
+  } catch (err) {
+    console.error('Erreur email:', err);
+    res.status(500).json({ error: 'Échec de l\'envoi de l\'email.' });
+  }
+};
+
+module.exports = { sendContactEmail };
