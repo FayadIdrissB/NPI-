@@ -12,7 +12,7 @@ const sendContactEmail = async (req, res) => {
   try {
     const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: process.env.EMAIL_RECEIVER,
+      to: process.env.EMAIL_RECEIVER.toString(),
       subject: `Nouveau contact: ${firstName} ${lastName}`,
       html: `
         <p><strong>Prénom:</strong> ${firstName}</p>
