@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const contactSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  message: String,
+  firstName: String,
+  lastName: String,
+  gender: String,
+  phone: String,
   createdAt: {
     type: Date,
     default: Date.now

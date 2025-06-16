@@ -26,7 +26,12 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
       const res = await fetch('https://2066-2001-861-8bb2-4bb0-10fa-f632-fcb0-80ee.ngrok-free.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          gender: formData.gender,
+          phone: formData.phone
+        }),
       });
 
       if (!res.ok) throw new Error('Erreur serveur');

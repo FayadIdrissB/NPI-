@@ -1,9 +1,9 @@
 const nodemailer = require('nodemailer');
 
 const sendContactEmail = async (req, res) => {
-  const { name, email, message } = req.body;
+  const { firstName, lastName, gender, phone } = req.body;
 
-  if (!name || !email || !message) {
+  if (!firstName || !lastName || !gender || !phone) {
     return res.status(400).json({ error: 'Tous les champs sont requis.' });
   }
 
@@ -19,8 +19,8 @@ const sendContactEmail = async (req, res) => {
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,
       to: process.env.EMAIL_TO,
-      subject: `Nouveau message de ${name}`,
-      text: `Email: ${email}\n\nMessage:\n${message}`,
+      subject: `Nouveau message de ${firstName} ${lastName}`,
+      text: `Prénom: ${firstName}\nNom: ${lastName}\nSexe: ${gender}\nTéléphone: ${phone}`,
     });
 
     res.status(200).json({ message: 'Email envoyé avec succès.' });
