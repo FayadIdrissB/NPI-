@@ -11,9 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("./config/db");
 const server_1 = require("./server");
+console.log('🟢 Lancement du backend...');
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Connexion à la base de données
+        console.log('🟢 Lancement du backend...');
         yield (0, db_1.connectDB)();
         // Lancement du serveur
         (0, server_1.startServer)();

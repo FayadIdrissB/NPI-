@@ -33,6 +33,11 @@ const handleContact = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const message = new contact_1.default({ firstName, lastName, gender, phone });
         yield message.save();
+        if (!mailer_1.resend) {
+            console.warn("Mailer désactivé. Aucune tentative d'envoi.");
+            res.status(503).json({ message: 'Service de mail désactivé temporairement.' });
+            return;
+        }
         yield mailer_1.resend.emails.send({
             from: 'onboarding@resend.dev',
             to: toEmail,
@@ -58,6 +63,7 @@ const handleContact = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (err) {
         console.error('❌ Erreur dans handleContact:', err);
         res.status(500).json({ message: 'Erreur serveur', error: err });
+        return;
     }
 });
 exports.handleContact = handleContact;

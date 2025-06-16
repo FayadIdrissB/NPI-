@@ -1,12 +1,15 @@
-# fly.toml app configuration file generated for npi-back-blue-sound-591 on 2025-06-14T22:29:38+02:00
+# fly.toml app configuration file generated for npi-back on 2025-06-15T23:38:44+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'npi-back-blue-sound-591'
+app = 'npi-back'
 primary_region = 'cdg'
 
 [build]
+
+[env]
+  PORT = '5005'
 
 [http_service]
   internal_port = 5005

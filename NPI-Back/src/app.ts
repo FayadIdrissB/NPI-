@@ -18,7 +18,22 @@ app.options('*', cors());
 app.use(express.json());
 
 // Routes
+
 app.use('/api', contactRoutes);
+
+// Debug : afficher toutes les routes chargées
+if (app._router && app._router.stack) {
+  app._router.stack.forEach((middleware: any) => {
+    if (middleware.route) {
+      console.log("🧪 RESEND_API_KEY:", process.env.RESEND_API_KEY);
+      console.log(`🛣️ Route: ${middleware.route.path}`);
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach((handler: any) => {
+        console.log(`🛣️ Route (child): ${handler.route?.path}`);
+      });
+    }
+  });
+}
 
 app.get('/', (req, res) => {
   res.send('🚀 Backend en ligne !');

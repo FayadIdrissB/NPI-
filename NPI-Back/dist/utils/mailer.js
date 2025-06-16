@@ -7,4 +7,5 @@ exports.resend = void 0;
 const resend_1 = require("resend");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-exports.resend = new resend_1.Resend(process.env.RESEND_API_KEY);
+const resendKey = process.env.RESEND_API_KEY;
+exports.resend = resendKey ? new resend_1.Resend(resendKey) : null;

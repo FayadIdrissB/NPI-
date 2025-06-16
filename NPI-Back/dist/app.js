@@ -14,9 +14,27 @@ app.use((0, cors_1.default)({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
-    credentials: true,
 }));
+app.options('*', (0, cors_1.default)());
 app.use(express_1.default.json());
 // Routes
 app.use('/api', contact_1.default);
+// Debug : afficher toutes les routes chargées
+if (app._router && app._router.stack) {
+    app._router.stack.forEach((middleware) => {
+        if (middleware.route) {
+            console.log("🧪 RESEND_API_KEY:", process.env.RESEND_API_KEY);
+            console.log(`🛣️ Route: ${middleware.route.path}`);
+        }
+        else if (middleware.name === 'router') {
+            middleware.handle.stack.forEach((handler) => {
+                var _a;
+                console.log(`🛣️ Route (child): ${(_a = handler.route) === null || _a === void 0 ? void 0 : _a.path}`);
+            });
+        }
+    });
+}
+app.get('/', (req, res) => {
+    res.send('🚀 Backend en ligne !');
+});
 exports.default = app;
