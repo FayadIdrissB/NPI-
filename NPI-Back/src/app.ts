@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import contactRoutes from './routes/contact';
 
 dotenv.config();
 
@@ -17,9 +16,6 @@ app.options('*', cors());
 
 app.use(express.json());
 
-// Routes
-
-app.use('/api', contactRoutes);
 
 // Debug : afficher toutes les routes chargées
 if (app._router && app._router.stack) {
