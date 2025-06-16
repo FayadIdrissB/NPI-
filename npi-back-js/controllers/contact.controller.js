@@ -11,7 +11,7 @@ const sendContactEmail = async (req, res) => {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM,
+      from: 'onboarding@resend.dev',
       to: [process.env.EMAIL_RECEIVER],
       subject: `Nouveau contact: ${firstName} ${lastName}`,
       html: `
@@ -28,7 +28,14 @@ const sendContactEmail = async (req, res) => {
     }
 
     console.log('✅ Email envoyé :', data);
-    res.status(200).json({ message: 'Email envoyé avec succès.' });
+    res.status(200).json({
+      message: 'Email envoyé avec succès.',
+      event: {
+        date: '18/06/2025',
+        hour: '14h00',
+        address: '123 Rue du Développement, Paris'
+      }
+    });
   } catch (err) {
     console.error('❌ Erreur inattendue:', err);
     res.status(500).json({ error: 'Erreur serveur inattendue.' });
