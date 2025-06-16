@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import photoGroupe from '../../assets/images/photoGroupe.jpeg'
 import photo_flo from '../../assets/images/photo_flo.jpeg'
 import vidéo from '../../assets/images/vidéo.mp4'
@@ -10,8 +10,19 @@ import '../../App.css'
 function Home() {
   const [remainingTickets, setRemainingTickets] = useState(20);
 
+  useEffect(() => {
+    const saved = localStorage.getItem('remainingTickets');
+    if (saved !== null) {
+      setRemainingTickets(Number(saved));
+    }
+  }, []);
+
   const handleFormSubmit = () => {
-    setRemainingTickets(prev => Math.max(prev - 1, 0));
+    setRemainingTickets(prev => {
+      const updated = Math.max(prev - 1, 0);
+      localStorage.setItem('remainingTickets', String(updated));
+      return updated;
+    });
   };
 
   return (
