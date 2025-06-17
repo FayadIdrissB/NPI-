@@ -4,6 +4,7 @@ import photo_flo from '../../assets/images/photo_flo.jpeg'
 import vidéo from '../../assets/images/vidéo.mp4'
 import Header from '../../components/header/index'
 import ContactForm from '../../features/form'
+import Footer from '../../components/footer';
 import '../../App.css'
 
 
@@ -102,6 +103,7 @@ function Home() {
         <section className='bg-black text-white py-16 px-4 text-center'>
           <ContactForm onSubmitSuccess={handleFormSubmit} />
         </section>
+        <Footer />
       </div>
     </>
   )
