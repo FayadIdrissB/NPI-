@@ -23,7 +23,7 @@ export default function ContactForm({ onSubmitSuccess }: ContactFormProps) {
     setStatus('loading');
 
     try {
-      const res = await fetch('https://0a25-2001-861-8bb2-4bb0-7939-6872-73cb-b1ce.ngrok-free.app/api/contact', {
+      const res = await fetch('https://b0f9-2001-861-8bb2-4bb0-e1d7-6617-e67d-398d.ngrok-free.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
